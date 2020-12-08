@@ -1,0 +1,12 @@
+{
+  "name": "MoitaRedonda",
+  "displayName": "MoitaRedonda",
+  "expo": {
+    "name": "MoitaRedonda",
+    "slug": "MoitaRedonda",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
