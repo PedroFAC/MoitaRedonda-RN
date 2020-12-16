@@ -1,6 +1,11 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Provider as PaperProvider } from 'react-native-paper';
+import Navigation from './src/routes/Navigation';
 
 export default function App() {
-  return <Text>Open up App.js to start working on your app!</Text>;
+  return (
+    <PaperProvider>
+      <Navigation />
+    </PaperProvider>
+  );
 }
