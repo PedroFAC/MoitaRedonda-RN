@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Home from '../pages/Home/Home';
 import routesEnum from './routesConstants';
 import Signup from '../pages/Signup/Signup';
+import Store from '../pages/Store/Store';
 
 const Navigation = () => {
   const { Screen, Navigator } = createStackNavigator();
@@ -19,6 +20,11 @@ const Navigation = () => {
           options={{ title: 'Cadastrar-se' }}
           name={routesEnum.signup}
           component={Signup}
+        />
+        <Screen
+          options={{ title: 'Loja', headerLeft: null }}
+          name={routesEnum.store}
+          component={Store}
         />
       </Navigator>
     </NavigationContainer>

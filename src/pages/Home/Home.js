@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import auth from '@react-native-firebase/auth';
+import { ToastAndroid } from 'react-native';
+
 import { ButtonsContainer } from './styles';
 import {
   Input,
@@ -12,6 +15,14 @@ const Home = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { navigate } = useNavigation();
+  const signin = async () => {
+    try {
+      await auth().signInWithEmailAndPassword(email, password);
+      navigate(routesEnum.store);
+    } catch (error) {
+      ToastAndroid.show(String(error), 5);
+    }
+  };
   return (
     <Container>
       <Input
@@ -29,7 +40,11 @@ const Home = () => {
         onChangeText={(value) => setPassword(value)}
       />
       <ButtonsContainer>
-        <CustomButton uppercase={false} mode="contained">
+        <CustomButton
+          onPress={() => signin()}
+          uppercase={false}
+          mode="contained"
+        >
           Entrar
         </CustomButton>
         <CustomButton
