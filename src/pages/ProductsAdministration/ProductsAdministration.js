@@ -3,11 +3,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button, List } from 'react-native-paper';
+import ProductsListItem from '../../components/ProductsListItem/ProductsListItem';
 import { useFirebaseAuth } from '../../helpers/hooks';
 import routesEnum from '../../routes/routesConstants';
 
 const ProductsAdministration = () => {
-  const { Section, Item } = List;
+  const { Section } = List;
   const { fireBaseSignout } = useFirebaseAuth();
   const { navigate } = useNavigation();
 
@@ -15,7 +16,7 @@ const ProductsAdministration = () => {
     <View>
       <ScrollView>
         <Section>
-          <Item title="item 1" />
+          <ProductsListItem name="Teste" action={() => console.log('teste')} />
         </Section>
       </ScrollView>
       <View>
