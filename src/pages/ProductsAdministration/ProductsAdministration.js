@@ -1,24 +1,59 @@
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { View } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { Button, List } from 'react-native-paper';
+import React, { useEffect, useState } from 'react';
+import { ToastAndroid, View } from 'react-native';
+import firestore from '@react-native-firebase/firestore';
+import { FlatList } from 'react-native-gesture-handler';
+import { Button } from 'react-native-paper';
 import ProductsListItem from '../../components/ProductsListItem/ProductsListItem';
 import { useFirebaseAuth } from '../../helpers/hooks';
 import routesEnum from '../../routes/routesConstants';
 
 const ProductsAdministration = () => {
-  const { Section } = List;
   const { fireBaseSignout } = useFirebaseAuth();
   const { navigate } = useNavigation();
+  const [list, setList] = useState([]);
+  useEffect(() => {
+    const subscriber = firestore()
+      .collection('Products')
+      .onSnapshot((querySnapshot) => {
+        const products = [];
+
+        querySnapshot.forEach((documentSnapshot) => {
+          products.push({
+            ...documentSnapshot.data(),
+            key: documentSnapshot.id,
+          });
+        });
+
+        setList(products);
+      });
+
+    // Unsubscribe from events when no longer in use
+    return () => subscriber();
+  }, []);
+  const removeProduct = async (id) => {
+    try {
+      await firestore().collection('Products').doc(id).delete();
+      ToastAndroid.show('Produto deletado com Sucesso', 10);
+    } catch (error) {
+      ToastAndroid.show(String(error), 10);
+    }
+  };
 
   return (
-    <View>
-      <ScrollView>
-        <Section>
-          <ProductsListItem name="Teste" action={() => console.log('teste')} />
-        </Section>
-      </ScrollView>
+    <>
+      <View style={{ flex: 1 }}>
+        <FlatList
+          data={list}
+          renderItem={({ item }) => (
+            <ProductsListItem
+              key={item.key}
+              name={item.name}
+              action={() => removeProduct(item.key)}
+            />
+          )}
+        />
+      </View>
       <View>
         <Button
           onPress={() => navigate(routesEnum.productForm)}
@@ -34,7 +69,7 @@ const ProductsAdministration = () => {
           Encerrar sessão
         </Button>
       </View>
-    </View>
+    </>
   );
 };
 

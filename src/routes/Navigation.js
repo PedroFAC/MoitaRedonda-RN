@@ -33,7 +33,11 @@ const Navigation = () => {
           name={routesEnum.productsAdmin}
           component={ProductsAdministration}
         />
-        <Screen name={routesEnum.productForm} component={ProductForm} />
+        <Screen
+          options={{ title: 'Produto' }}
+          name={routesEnum.productForm}
+          component={ProductForm}
+        />
       </Navigator>
     </NavigationContainer>
   );

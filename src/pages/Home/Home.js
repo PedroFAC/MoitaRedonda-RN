@@ -10,8 +10,8 @@ import {
 import routesEnum from '../../routes/routesConstants';
 
 const Home = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
   const { navigate } = useNavigation();
   const { firebaseSignIn } = useFirebaseAuth();
 
