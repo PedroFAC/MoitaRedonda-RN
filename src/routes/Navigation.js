@@ -5,6 +5,9 @@ import Home from '../pages/Home/Home';
 import routesEnum from './routesConstants';
 import Signup from '../pages/Signup/Signup';
 import Store from '../pages/Store/Store';
+import ProductsAdministration from '../pages/ProductsAdministration/ProductsAdministration';
+import AddProductForm from '../pages/ProductsAdministration/AddProductForm/AddProductForm';
+import EditProductForm from '../pages/ProductsAdministration/EditProductForm/EditProductForm';
 
 const Navigation = () => {
   const { Screen, Navigator } = createStackNavigator();
@@ -25,6 +28,21 @@ const Navigation = () => {
           options={{ title: 'Loja', headerLeft: null }}
           name={routesEnum.store}
           component={Store}
+        />
+        <Screen
+          options={{ title: 'Administração de produtos', headerLeft: null }}
+          name={routesEnum.productsAdmin}
+          component={ProductsAdministration}
+        />
+        <Screen
+          options={{ title: 'Adicionar Produto' }}
+          name={routesEnum.addProductForm}
+          component={AddProductForm}
+        />
+        <Screen
+          options={{ title: 'Editar Produto' }}
+          name={routesEnum.editProductForm}
+          component={EditProductForm}
         />
       </Navigator>
     </NavigationContainer>

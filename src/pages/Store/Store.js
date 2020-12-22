@@ -1,26 +1,16 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
-import auth from '@react-native-firebase/auth';
-import { ToastAndroid } from 'react-native';
-import routesEnum from '../../routes/routesConstants';
 import {
   Container,
   CustomButton,
 } from '../../components/sharedComponents/sharedComponents';
+import { useFirebaseAuth } from '../../helpers/hooks';
 
 const Store = () => {
-  const { navigate } = useNavigation();
-  const signout = async () => {
-    try {
-      await auth().signOut();
-      navigate(routesEnum.home);
-    } catch (error) {
-      ToastAndroid.show(String(error), 5);
-    }
-  };
+  const { fireBaseSignout } = useFirebaseAuth();
+
   return (
     <Container>
-      <CustomButton onPress={() => signout()}>Signout</CustomButton>
+      <CustomButton onPress={() => fireBaseSignout()}>Signout</CustomButton>
     </Container>
   );
 };
