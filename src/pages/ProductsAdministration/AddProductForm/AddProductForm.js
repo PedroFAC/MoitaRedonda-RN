@@ -1,73 +1,71 @@
-import React, { useState } from 'react';
-import { ToastAndroid } from 'react-native';
+import React from 'react';
+import { Text } from 'react-native';
 import { Button } from 'react-native-paper';
-import firestore from '@react-native-firebase/firestore';
-import { useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
-import routesEnum from '../../../routes/routesConstants';
+import { Formik } from 'formik';
 import {
   Container,
   Input,
 } from '../../../components/sharedComponents/sharedComponents';
+import { productSchema } from '../../../helpers/schemas/productSchema';
+import { useProductsFirestore } from '../../../helpers/hooks';
 
 const AddProductForm = () => {
-  const { navigate } = useNavigation();
-  const [name, setName] = useState();
-  const [description, setDescription] = useState();
-  const [price, setPrice] = useState();
-  const [owner, setOwner] = useState();
-
-  const submitProduct = async () => {
-    try {
-      await firestore().collection('Products').add({
-        name,
-        description,
-        price,
-        owner,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-        updatedAt: firestore.FieldValue.serverTimestamp(),
-      });
-      ToastAndroid.show('Produto adicionado', 10);
-      navigate(routesEnum.productsAdmin);
-    } catch (error) {
-      ToastAndroid.show(String(error), 10);
-    }
-  };
+  const { addProduct } = useProductsFirestore();
 
   return (
-    <>
-      <ScrollView>
-        <Container>
-          <Input
-            label="Nome"
-            value={name}
-            mode="outlined"
-            onChangeText={(value) => setName(value)}
-          />
-          <Input
-            label="Descrição"
-            value={description}
-            mode="outlined"
-            onChangeText={(value) => setDescription(value)}
-          />
-          <Input
-            label="Preço"
-            value={price}
-            mode="outlined"
-            onChangeText={(value) => setPrice(value)}
-          />
-          <Input
-            label="Produtor"
-            value={owner}
-            mode="outlined"
-            onChangeText={(value) => setOwner(value)}
-          />
-        </Container>
-      </ScrollView>
-      <Button mode="contained" onPress={() => submitProduct()}>
-        Confirmar
-      </Button>
-    </>
+    <Formik
+      initialValues={{ name: '', description: '', price: '', owner: '' }}
+      validationSchema={productSchema}
+      onSubmit={(values) => addProduct(values)}
+    >
+      {({ handleChange, values, handleSubmit, errors }) => (
+        <>
+          <ScrollView>
+            <Container>
+              <Input
+                label="Nome"
+                value={values.name}
+                mode="outlined"
+                onChangeText={handleChange('name')}
+                error={errors.name}
+              />
+              <Text>{errors.name}</Text>
+              <Input
+                label="Descrição"
+                value={values.description}
+                mode="outlined"
+                onChangeText={handleChange('description')}
+                error={errors.description}
+              />
+              <Text>{errors.description}</Text>
+
+              <Input
+                label="Preço"
+                value={values.price}
+                mode="outlined"
+                onChangeText={handleChange('price')}
+                keyboardType="number-pad"
+                error={errors.price}
+              />
+              <Text>{errors.price}</Text>
+
+              <Input
+                label="Produtor"
+                value={values.owner}
+                mode="outlined"
+                onChangeText={handleChange('owner')}
+                error={errors.owner}
+              />
+              <Text>{errors.owner}</Text>
+            </Container>
+          </ScrollView>
+          <Button mode="contained" onPress={handleSubmit}>
+            Confirmar
+          </Button>
+        </>
+      )}
+    </Formik>
   );
 };
 

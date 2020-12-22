@@ -1,15 +1,16 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { ToastAndroid, View } from 'react-native';
+import { View } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import ProductsListItem from '../../components/ProductsListItem/ProductsListItem';
-import { useFirebaseAuth } from '../../helpers/hooks';
+import { useFirebaseAuth, useProductsFirestore } from '../../helpers/hooks';
 import routesEnum from '../../routes/routesConstants';
 
 const ProductsAdministration = () => {
   const { fireBaseSignout } = useFirebaseAuth();
+  const { deleteProduct } = useProductsFirestore();
   const { navigate } = useNavigation();
   const [list, setList] = useState([]);
   useEffect(() => {
@@ -31,14 +32,6 @@ const ProductsAdministration = () => {
     // Unsubscribe from events when no longer in use
     return () => subscriber();
   }, []);
-  const removeProduct = async (id) => {
-    try {
-      await firestore().collection('Products').doc(id).delete();
-      ToastAndroid.show('Produto deletado com Sucesso', 10);
-    } catch (error) {
-      ToastAndroid.show(String(error), 10);
-    }
-  };
 
   return (
     <>
@@ -49,7 +42,7 @@ const ProductsAdministration = () => {
             <ProductsListItem
               key={item.key}
               name={item.name}
-              deleteAction={() => removeProduct(item.key)}
+              deleteAction={() => deleteProduct(item)}
               editAction={() =>
                 navigate(routesEnum.editProductForm, { product: item })
               }
