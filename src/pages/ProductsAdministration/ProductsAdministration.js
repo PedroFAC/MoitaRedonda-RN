@@ -49,14 +49,17 @@ const ProductsAdministration = () => {
             <ProductsListItem
               key={item.key}
               name={item.name}
-              action={() => removeProduct(item.key)}
+              deleteAction={() => removeProduct(item.key)}
+              editAction={() =>
+                navigate(routesEnum.editProductForm, { product: item })
+              }
             />
           )}
         />
       </View>
       <View>
         <Button
-          onPress={() => navigate(routesEnum.productForm)}
+          onPress={() => navigate(routesEnum.addProductForm)}
           mode="contained"
         >
           Adicionar produto

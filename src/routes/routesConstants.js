@@ -2,14 +2,16 @@ const home = 'Home';
 const signup = 'Signup';
 const store = 'Store';
 const productsAdmin = 'ProdAdmin';
-const productForm = 'ProductForm';
+const addProductForm = 'AddProductForm';
+const editProductForm = 'EditProductForm';
 
 const routesEnum = {
   home,
   signup,
   store,
   productsAdmin,
-  productForm,
+  addProductForm,
+  editProductForm,
 };
 
 export default routesEnum;

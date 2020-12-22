@@ -2,13 +2,13 @@ import React from 'react';
 import { IconButton, List } from 'react-native-paper';
 import PropTypes from 'prop-types';
 
-const ProductsListItem = ({ name, action }) => {
-  const { Item, Icon } = List;
+const ProductsListItem = ({ name, deleteAction, editAction }) => {
+  const { Item } = List;
   return (
     <Item
       title={name}
-      left={() => <Icon icon="shape" />}
-      right={() => <IconButton icon="delete" onPress={action} />}
+      left={() => <IconButton icon="shape" onPress={editAction} />}
+      right={() => <IconButton icon="delete" onPress={deleteAction} />}
     />
   );
 };
@@ -17,5 +17,6 @@ export default ProductsListItem;
 
 ProductsListItem.propTypes = {
   name: PropTypes.string.isRequired,
-  action: PropTypes.func.isRequired,
+  deleteAction: PropTypes.func.isRequired,
+  editAction: PropTypes.func.isRequired,
 };
