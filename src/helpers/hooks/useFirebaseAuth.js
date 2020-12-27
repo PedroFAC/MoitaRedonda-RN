@@ -5,12 +5,10 @@ import routesEnum from '../../routes/routesConstants';
 
 const useFirebaseAuth = () => {
   const { navigate } = useNavigation();
-  const firebaseSignUp = async (email, password, confirmPassword) => {
+  const firebaseSignUp = async (email, password) => {
     try {
-      if (password === confirmPassword) {
-        await auth().createUserWithEmailAndPassword(email, password);
-        navigate(routesEnum.home);
-      }
+      await auth().createUserWithEmailAndPassword(email, password);
+      navigate(routesEnum.home);
     } catch (error) {
       ToastAndroid.show(String(error), 5);
     }

@@ -17,3 +17,8 @@ export const Input = styled(TextInput)`
   width: 80%;
   align-self: center;
 `;
+
+export const ButtonsContainer = styled.View`
+  display: flex;
+  justify-content: center;
+`;

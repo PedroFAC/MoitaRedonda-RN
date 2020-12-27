@@ -1,51 +1,67 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Text } from 'react-native';
+import { Formik } from 'formik';
 import {
   Input,
   Container,
   CustomButton,
+  ButtonsContainer,
 } from '../../components/sharedComponents/sharedComponents';
-import { ButtonsContainer } from './styles';
 import { useFirebaseAuth } from '../../helpers/hooks';
+import { userSchema } from '../../helpers/schemas/userSchema';
 
 const Signup = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
   const { firebaseSignUp } = useFirebaseAuth();
 
   return (
-    <Container>
-      <Input
-        mode="outlined"
-        label="Email"
-        value={email}
-        keyboardType="email-address"
-        onChangeText={(value) => setEmail(value)}
-      />
-      <Input
-        mode="outlined"
-        label="Senha"
-        value={password}
-        secureTextEntry
-        onChangeText={(value) => setPassword(value)}
-      />
-      <Input
-        mode="outlined"
-        label="Confirmar Senha"
-        value={confirmPassword}
-        secureTextEntry
-        onChangeText={(value) => setConfirmPassword(value)}
-      />
-      <ButtonsContainer>
-        <CustomButton
-          onPress={() => firebaseSignUp(email, password, confirmPassword)}
-          uppercase={false}
-          mode="contained"
-        >
-          Confirmar
-        </CustomButton>
-      </ButtonsContainer>
-    </Container>
+    <Formik
+      initialValues={{ email: '', password: '', confirmPassword: '' }}
+      validationSchema={userSchema}
+      onSubmit={({ email, password }) => firebaseSignUp(email, password)}
+    >
+      {({ handleChange, values, handleSubmit, errors }) => (
+        <Container>
+          <Input
+            mode="outlined"
+            label="Email"
+            value={values.email}
+            keyboardType="email-address"
+            onChangeText={handleChange('email')}
+            error={errors.email}
+          />
+          <Text>{errors.email}</Text>
+          <Input
+            mode="outlined"
+            label="Senha"
+            value={values.password}
+            secureTextEntry
+            onChangeText={handleChange('password')}
+            error={errors.password}
+          />
+          <Text>{errors.password}</Text>
+
+          <Input
+            mode="outlined"
+            label="Confirmar Senha"
+            value={values.confirmPassword}
+            secureTextEntry
+            onChangeText={handleChange('confirmPassword')}
+            error={errors.confirmPassword}
+          />
+          <Text>{errors.confirmPassword}</Text>
+
+          <ButtonsContainer>
+            <CustomButton
+              onPress={handleSubmit}
+              uppercase={false}
+              mode="contained"
+            >
+              Confirmar
+            </CustomButton>
+          </ButtonsContainer>
+        </Container>
+      )}
+    </Formik>
   );
 };
 
