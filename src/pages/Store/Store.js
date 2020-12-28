@@ -1,18 +1,6 @@
 import React from 'react';
-import {
-  Container,
-  CustomButton,
-} from '../../components/sharedComponents/sharedComponents';
-import { useFirebaseAuth } from '../../helpers/hooks';
+import StoreProductsList from '../../components/StoreProductsList/StoreProductsList';
 
-const Store = () => {
-  const { fireBaseSignout } = useFirebaseAuth();
-
-  return (
-    <Container>
-      <CustomButton onPress={() => fireBaseSignout()}>Signout</CustomButton>
-    </Container>
-  );
-};
+const Store = () => <StoreProductsList />;
 
 export default Store;

@@ -17,7 +17,7 @@ const useFirebaseAuth = () => {
   const firebaseSignIn = async (email, password) => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      navigate(routesEnum.productsAdmin);
+      navigate(routesEnum.store);
     } catch (error) {
       ToastAndroid.show(String(error), 5);
     }
