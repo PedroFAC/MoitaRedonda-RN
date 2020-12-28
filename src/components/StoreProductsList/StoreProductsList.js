@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native';
 import StoreListItem from '../StoreListItem/StoreListItem';
+import CartFab from '../CartFab/CartFab';
 
 const StoreProductsList = () => {
   const [data, setData] = useState([]);
@@ -27,11 +28,14 @@ const StoreProductsList = () => {
   }, []);
 
   return (
-    <FlatList
-      data={data}
-      renderItem={({ item }) => <StoreListItem item={item} />}
-      keyExtractor={(item) => item.key}
-    />
+    <>
+      <FlatList
+        data={data}
+        renderItem={({ item }) => <StoreListItem item={item} />}
+        keyExtractor={(item) => item.key}
+      />
+      <CartFab />
+    </>
   );
 };
 
