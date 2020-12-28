@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { Body, Left, List, ListItem, Text, Thumbnail } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 import { productDefault } from '../../assets';
+import routesEnum from '../../routes/routesConstants';
 
 const StoreProductsList = () => {
+  const { navigate } = useNavigation();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -29,7 +32,11 @@ const StoreProductsList = () => {
   return (
     <List>
       {data.map((item) => (
-        <ListItem key={item.id} avatar>
+        <ListItem
+          key={item.key}
+          avatar
+          onPress={() => navigate(routesEnum.storeProduct, item)}
+        >
           <Left>
             <Thumbnail source={productDefault} />
           </Left>
