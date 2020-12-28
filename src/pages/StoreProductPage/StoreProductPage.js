@@ -1,9 +1,9 @@
 import { useRoute } from '@react-navigation/native';
 import { Body, Card, CardItem, H3, Right, Text } from 'native-base';
 import React from 'react';
-import { Image } from 'react-native';
-import { Button } from 'react-native-paper';
 import { productDefault } from '../../assets';
+import { CardButton } from '../../components/sharedComponents/sharedComponents';
+import { CardImage } from './styles';
 
 const StoreProductPage = () => {
   const { params } = useRoute();
@@ -20,10 +20,7 @@ const StoreProductPage = () => {
       </CardItem>
       <CardItem>
         <Body>
-          <Image
-            source={productDefault}
-            style={{ height: 200, width: '100%' }}
-          />
+          <CardImage source={productDefault} />
         </Body>
       </CardItem>
       <CardItem>
@@ -38,12 +35,8 @@ const StoreProductPage = () => {
           <Text>{owner}</Text>
         </Body>
       </CardItem>
-      <CardItem>
-        <Body>
-          <Button style={{ width: '100%' }} icon="cart">
-            Adicionar ao carrinho
-          </Button>
-        </Body>
+      <CardItem footer>
+        <CardButton icon="cart">Adicionar ao carrinho</CardButton>
       </CardItem>
     </Card>
   );
