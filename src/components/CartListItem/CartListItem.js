@@ -6,6 +6,7 @@ import {
   Left,
   Right,
   Toast,
+  View,
 } from 'native-base';
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -13,6 +14,7 @@ import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import { productDefault } from '../../assets';
 import { removeFromCart } from '../../redux/actions/cart';
+import CartQuantityInput from '../CartQuantityInput/CartQuantityInput';
 
 const CartListItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -38,9 +40,11 @@ const CartListItem = ({ item }) => {
         <Body>
           <Text>{item.name}</Text>
           <Text note>Preço: R${item.price}</Text>
-          <Text note>Quantidade: {item.quantity}</Text>
         </Body>
       </Left>
+      <View>
+        <CartQuantityInput item={item} quantity={item.quantity} />
+      </View>
       <Right>
         <IconButton icon="delete" onPress={() => removeProductFromCart(item)} />
       </Right>
