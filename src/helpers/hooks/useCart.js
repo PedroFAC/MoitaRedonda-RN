@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { Toast } from 'native-base';
+import { Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addToCart,
@@ -58,6 +59,24 @@ const useCart = () => {
   const changeQuantity = (item, value) =>
     dispatch(changeItemQuantity(item, value));
 
+  const closeOrder = async () => {
+    const builtString = `Olá, gostaria de confirmar meu pedido no valor de R$ ${totalCost} que contem os seguintes itens:
+      ${cart.map(
+        (item) => `${item.quantity}x ${item.name} - R$ ${item.price}, \n`
+      )}
+    `;
+
+    try {
+      await Linking.openURL(
+        `whatsapp://send?text=${builtString}&phone=+5585997970116`
+      );
+    } catch {
+      await Linking.openURL(
+        `https://api.whatsapp.com/send?text=${builtString}&phone=+5585997970116`
+      );
+    }
+  };
+
   return {
     cart,
     totalItems,
@@ -66,6 +85,7 @@ const useCart = () => {
     removeProductFromCart,
     onClear,
     changeQuantity,
+    closeOrder,
   };
 };
 
