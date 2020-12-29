@@ -1,34 +1,28 @@
-import { Card, CardItem, Container, Icon, List, Text, View } from 'native-base';
+import { Card, CardItem, Container, Icon, List, Text } from 'native-base';
 import React from 'react';
 import { Button } from 'react-native-paper';
 import CartListItem from '../../components/CartListItem/CartListItem';
 import { useCart } from '../../helpers/hooks';
+import { Container as EmptyContainer } from '../../components/sharedComponents/sharedComponents';
 
 const Cart = () => {
   const { cart, totalItems, totalCost, onClear } = useCart();
 
   return (
     <Container>
-      <View style={{ flex: 1 }}>
+      <Container>
         {cart.length === 0 ? (
-          <View
-            style={{
-              alignSelf: 'center',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flex: 1,
-            }}
-          >
+          <EmptyContainer>
             <Icon name="alert" />
             <Text>Seus itens adicionados aparecerão aqui</Text>
-          </View>
+          </EmptyContainer>
         ) : (
           <List
             dataArray={cart}
             renderItem={({ item }) => <CartListItem item={item} />}
           />
         )}
-      </View>
+      </Container>
       <Card>
         <CardItem>
           <Text>Total de itens: {totalItems}</Text>
