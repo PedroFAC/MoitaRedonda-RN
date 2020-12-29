@@ -5,6 +5,7 @@ const productsAdmin = 'ProdAdmin';
 const addProductForm = 'AddProductForm';
 const editProductForm = 'EditProductForm';
 const storeProduct = 'StoreProduct';
+const cart = 'Cart';
 
 const routesEnum = {
   home,
@@ -14,6 +15,7 @@ const routesEnum = {
   productsAdmin,
   addProductForm,
   editProductForm,
+  cart,
 };
 
 export default routesEnum;

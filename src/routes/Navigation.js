@@ -9,6 +9,7 @@ import ProductsAdministration from '../pages/ProductsAdministration/ProductsAdmi
 import AddProductForm from '../pages/ProductsAdministration/AddProductForm/AddProductForm';
 import EditProductForm from '../pages/ProductsAdministration/EditProductForm/EditProductForm';
 import StoreProductPage from '../pages/StoreProductPage/StoreProductPage';
+import Cart from '../pages/Cart/Cart';
 
 const Navigation = () => {
   const { Screen, Navigator } = createStackNavigator();
@@ -49,6 +50,11 @@ const Navigation = () => {
           options={{ title: 'Editar Produto' }}
           name={routesEnum.editProductForm}
           component={EditProductForm}
+        />
+        <Screen
+          options={{ title: 'Carrinho' }}
+          name={routesEnum.cart}
+          component={Cart}
         />
       </Navigator>
     </NavigationContainer>

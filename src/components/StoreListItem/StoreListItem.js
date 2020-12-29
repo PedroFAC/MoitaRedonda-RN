@@ -6,10 +6,13 @@ import { productDefault } from '../../assets';
 import routesEnum from '../../routes/routesConstants';
 import { CardContainer } from './styles';
 import { CardButton } from '../sharedComponents/sharedComponents';
+import { useCart } from '../../helpers/hooks';
 
 const StoreListItem = ({ item }) => {
   const { navigate } = useNavigation();
   const { price, name } = item;
+  const { addProductToCart } = useCart();
+
   return (
     <CardContainer>
       <CardItem header>
@@ -34,7 +37,9 @@ const StoreListItem = ({ item }) => {
       </CardItem>
       <CardItem>
         <Body>
-          <CardButton icon="cart">Adicionar ao carrinho</CardButton>
+          <CardButton onPress={() => addProductToCart(item)} icon="cart">
+            Adicionar ao carrinho
+          </CardButton>
         </Body>
       </CardItem>
     </CardContainer>
