@@ -1,11 +1,10 @@
 import React from 'react';
 import NumericInput from 'react-native-numeric-input';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { changeItemQuantity } from '../../redux/actions/cart';
+import { useCart } from '../../helpers/hooks';
 
 const CartQuantityInput = ({ quantity, item }) => {
-  const dispatch = useDispatch();
+  const { changeQuantity } = useCart();
   return (
     <NumericInput
       value={quantity}
@@ -14,7 +13,7 @@ const CartQuantityInput = ({ quantity, item }) => {
       editable={false}
       totalWidth={100}
       rounded
-      onChange={(value) => dispatch(changeItemQuantity(item, value))}
+      onChange={(value) => changeQuantity(item, value)}
     />
   );
 };

@@ -1,36 +1,11 @@
-import {
-  Card,
-  CardItem,
-  Container,
-  Icon,
-  List,
-  Text,
-  Toast,
-  View,
-} from 'native-base';
+import { Card, CardItem, Container, Icon, List, Text, View } from 'native-base';
 import React from 'react';
 import { Button } from 'react-native-paper';
-import { useDispatch, useSelector } from 'react-redux';
 import CartListItem from '../../components/CartListItem/CartListItem';
-import { clearCart } from '../../redux/actions/cart';
+import { useCart } from '../../helpers/hooks';
 
 const Cart = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cartReducer.cart);
-  const totalItems = cart.reduce((a, b) => a + b.quantity, 0);
-  const totalCost = cart
-    .reduce((a, b) => a + b.quantity * b.price, 0)
-    .toFixed(2);
-
-  const onClear = () => {
-    if (cart.length > 0) {
-      dispatch(clearCart());
-      Toast.show({
-        text: 'Carrinho limpo!',
-        type: 'success',
-      });
-    }
-  };
+  const { cart, totalItems, totalCost, onClear } = useCart();
 
   return (
     <Container>

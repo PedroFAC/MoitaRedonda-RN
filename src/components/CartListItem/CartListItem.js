@@ -5,33 +5,17 @@ import {
   Body,
   Left,
   Right,
-  Toast,
   View,
 } from 'native-base';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { IconButton } from 'react-native-paper';
-import { useDispatch } from 'react-redux';
 import { productDefault } from '../../assets';
-import { removeFromCart } from '../../redux/actions/cart';
 import CartQuantityInput from '../CartQuantityInput/CartQuantityInput';
+import { useCart } from '../../helpers/hooks';
 
 const CartListItem = ({ item }) => {
-  const dispatch = useDispatch();
-  const removeProductFromCart = async (product) => {
-    try {
-      await dispatch(removeFromCart(product));
-      Toast.show({
-        text: 'Produto removido!',
-        type: 'success',
-      });
-    } catch (error) {
-      Toast.show({
-        text: 'Erro ao adicionar produto ao carrinho!',
-        type: 'warning',
-      });
-    }
-  };
+  const { removeProductFromCart } = useCart();
 
   return (
     <ListItem>

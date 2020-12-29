@@ -1,30 +1,17 @@
 import { useNavigation } from '@react-navigation/native';
-import { CardItem, H3, Thumbnail, Text, Body, Toast } from 'native-base';
+import { CardItem, H3, Thumbnail, Text, Body } from 'native-base';
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { productDefault } from '../../assets';
 import routesEnum from '../../routes/routesConstants';
 import { CardContainer } from './styles';
 import { CardButton } from '../sharedComponents/sharedComponents';
-import { addToCart } from '../../redux/actions/cart';
+import { useCart } from '../../helpers/hooks';
 
 const StoreListItem = ({ item }) => {
   const { navigate } = useNavigation();
   const { price, name } = item;
-  const dispatch = useDispatch();
-
-  const addProductToCart = async (product) => {
-    try {
-      await dispatch(addToCart(product));
-      navigate(routesEnum.cart);
-    } catch (error) {
-      Toast.show({
-        text: 'Erro ao adicionar produto ao carrinho!',
-        type: 'warning',
-      });
-    }
-  };
+  const { addProductToCart } = useCart();
 
   return (
     <CardContainer>
