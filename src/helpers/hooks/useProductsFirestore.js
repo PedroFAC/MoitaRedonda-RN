@@ -1,6 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-import { ToastAndroid } from 'react-native';
+import { Toast } from 'native-base';
+
 import routesEnum from '../../routes/routesConstants';
 
 const useProductsFirestore = () => {
@@ -16,10 +17,11 @@ const useProductsFirestore = () => {
         createdAt: firestore.FieldValue.serverTimestamp(),
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
-      ToastAndroid.show('Produto adicionado', 10);
+      Toast.show({ text: 'Produto adicionado', type: 'success' });
+
       navigate(routesEnum.productsAdmin);
     } catch (error) {
-      ToastAndroid.show(String(error), 10);
+      Toast.show({ text: String(error), type: 'danger' });
     }
   };
   const editProduct = async ({ name, description, price, owner, key }) => {
@@ -31,19 +33,19 @@ const useProductsFirestore = () => {
         owner,
         updatedAt: firestore.FieldValue.serverTimestamp(),
       });
-      ToastAndroid.show('Produto editado', 10);
+      Toast.show({ text: 'Produto editado', type: 'success' });
       navigate(routesEnum.productsAdmin);
     } catch (error) {
-      ToastAndroid.show(String(error), 10);
+      Toast.show({ text: String(error), type: 'danger' });
     }
   };
   const deleteProduct = async ({ key }) => {
     try {
       await firestore().collection('Products').doc(key).delete();
       navigate(routesEnum.productsAdmin);
-      ToastAndroid.show('Produto deletado', 10);
+      Toast.show({ text: 'Produto deletado', type: 'success' });
     } catch (error) {
-      ToastAndroid.show(String(error), 10);
+      Toast.show({ text: String(error), type: 'danger' });
     }
   };
   return { addProduct, editProduct, deleteProduct };
