@@ -5,7 +5,7 @@ import { Text } from 'react-native';
 import { useFirebaseAuth } from '../../helpers/hooks';
 import {
   Input,
-  Container,
+  Wrapper,
   CustomButton,
   ButtonsContainer,
 } from '../../components/sharedComponents/sharedComponents';
@@ -22,7 +22,7 @@ const Home = () => {
       onSubmit={({ email, password }) => firebaseSignIn(email, password)}
     >
       {({ values, handleChange, handleSubmit, errors }) => (
-        <Container>
+        <Wrapper>
           <Input
             mode="outlined"
             label="Email"
@@ -57,7 +57,7 @@ const Home = () => {
               Cadastre-se
             </CustomButton>
           </ButtonsContainer>
-        </Container>
+        </Wrapper>
       )}
     </Formik>
   );

@@ -1,15 +1,15 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { Button } from 'react-native-paper';
 import { useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
 import {
-  Container,
+  Wrapper,
   Input,
 } from '../../../components/sharedComponents/sharedComponents';
 import { productSchema } from '../../../helpers/schemas/productSchema';
 import { useProductsFirestore } from '../../../helpers/hooks';
+import LargeButton from '../../../components/LargeButton/LargeButton';
 
 const EditProductForm = () => {
   const { params } = useRoute();
@@ -31,7 +31,7 @@ const EditProductForm = () => {
       {({ handleChange, values, handleSubmit, errors }) => (
         <>
           <ScrollView>
-            <Container>
+            <Wrapper>
               <Input
                 label="Chave"
                 value={values.key}
@@ -73,18 +73,12 @@ const EditProductForm = () => {
                 error={errors.owner}
               />
               <Text>{errors.owner}</Text>
-            </Container>
+            </Wrapper>
           </ScrollView>
-          <Button mode="contained" onPress={handleSubmit}>
-            Editar produto
-          </Button>
-          <Button
-            color="#DB4437"
-            mode="contained"
-            onPress={() => deleteProduct(values)}
-          >
+          <LargeButton onPress={handleSubmit}>Editar produto</LargeButton>
+          <LargeButton color="#DB4437" onPress={() => deleteProduct(values)}>
             Deletar produto
-          </Button>
+          </LargeButton>
         </>
       )}
     </Formik>

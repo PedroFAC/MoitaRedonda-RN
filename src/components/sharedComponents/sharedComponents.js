@@ -1,11 +1,12 @@
 import { Button, TextInput } from 'react-native-paper';
+import { Container } from 'native-base';
 import styled from 'styled-components/native';
 
 export const CustomButton = styled(Button)`
   margin: 10px 0;
 `;
 
-export const Container = styled.View`
+export const Wrapper = styled(Container)`
   display: flex;
   align-items: center;
   justify-content: center;
