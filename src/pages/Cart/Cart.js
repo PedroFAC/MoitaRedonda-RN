@@ -4,7 +4,7 @@ import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import CartListItem from '../../components/CartListItem/CartListItem';
 import { useCart } from '../../helpers/hooks';
-import { Container as EmptyContainer } from '../../components/sharedComponents/sharedComponents';
+import { Wrapper } from '../../components/sharedComponents/sharedComponents';
 import routesEnum from '../../routes/routesConstants';
 import CartStatusCard from '../../components/CartStatusCard/CartStatusCard';
 
@@ -15,10 +15,10 @@ const Cart = () => {
     <Container>
       <Container>
         {cart.length === 0 ? (
-          <EmptyContainer>
+          <Wrapper>
             <Icon name="alert" />
             <Text>Seus itens adicionados aparecerão aqui</Text>
-          </EmptyContainer>
+          </Wrapper>
         ) : (
           <List
             dataArray={cart}

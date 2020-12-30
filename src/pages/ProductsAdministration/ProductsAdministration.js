@@ -1,9 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
+import { Container } from 'native-base';
 import ProductsListItem from '../../components/ProductsListItem/ProductsListItem';
 import { useFirebaseAuth, useProductsFirestore } from '../../helpers/hooks';
 import routesEnum from '../../routes/routesConstants';
@@ -34,38 +34,34 @@ const ProductsAdministration = () => {
   }, []);
 
   return (
-    <>
-      <View style={{ flex: 1 }}>
-        <FlatList
-          data={list}
-          renderItem={({ item }) => (
-            <ProductsListItem
-              key={item.key}
-              name={item.name}
-              deleteAction={() => deleteProduct(item)}
-              editAction={() =>
-                navigate(routesEnum.editProductForm, { product: item })
-              }
-            />
-          )}
-        />
-      </View>
-      <View>
-        <Button
-          onPress={() => navigate(routesEnum.addProductForm)}
-          mode="contained"
-        >
-          Adicionar produto
-        </Button>
-        <Button
-          mode="contained"
-          color="#DB4437"
-          onPress={() => fireBaseSignout()}
-        >
-          Encerrar sessão
-        </Button>
-      </View>
-    </>
+    <Container>
+      <FlatList
+        data={list}
+        renderItem={({ item }) => (
+          <ProductsListItem
+            key={item.key}
+            name={item.name}
+            deleteAction={() => deleteProduct(item)}
+            editAction={() =>
+              navigate(routesEnum.editProductForm, { product: item })
+            }
+          />
+        )}
+      />
+      <Button
+        onPress={() => navigate(routesEnum.addProductForm)}
+        mode="contained"
+      >
+        Adicionar produto
+      </Button>
+      <Button
+        mode="contained"
+        color="#DB4437"
+        onPress={() => fireBaseSignout()}
+      >
+        Encerrar sessão
+      </Button>
+    </Container>
   );
 };
 

@@ -3,8 +3,9 @@ import { Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
+import { Container } from 'native-base';
 import {
-  Container,
+  Wrapper,
   Input,
 } from '../../../components/sharedComponents/sharedComponents';
 import { productSchema } from '../../../helpers/schemas/productSchema';
@@ -20,9 +21,9 @@ const AddProductForm = () => {
       onSubmit={(values) => addProduct(values)}
     >
       {({ handleChange, values, handleSubmit, errors }) => (
-        <>
+        <Container>
           <ScrollView>
-            <Container>
+            <Wrapper>
               <Input
                 label="Nome"
                 value={values.name}
@@ -58,12 +59,12 @@ const AddProductForm = () => {
                 error={errors.owner}
               />
               <Text>{errors.owner}</Text>
-            </Container>
+            </Wrapper>
           </ScrollView>
           <Button mode="contained" onPress={handleSubmit}>
             Confirmar
           </Button>
-        </>
+        </Container>
       )}
     </Formik>
   );

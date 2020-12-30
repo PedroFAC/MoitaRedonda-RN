@@ -5,7 +5,7 @@ import { useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
 import {
-  Container,
+  Wrapper,
   Input,
 } from '../../../components/sharedComponents/sharedComponents';
 import { productSchema } from '../../../helpers/schemas/productSchema';
@@ -31,7 +31,7 @@ const EditProductForm = () => {
       {({ handleChange, values, handleSubmit, errors }) => (
         <>
           <ScrollView>
-            <Container>
+            <Wrapper>
               <Input
                 label="Chave"
                 value={values.key}
@@ -73,7 +73,7 @@ const EditProductForm = () => {
                 error={errors.owner}
               />
               <Text>{errors.owner}</Text>
-            </Container>
+            </Wrapper>
           </ScrollView>
           <Button mode="contained" onPress={handleSubmit}>
             Editar produto
