@@ -56,6 +56,8 @@ const useCart = () => {
     }
   };
 
+  const clearCartSignOut = () => dispatch(clearCart());
+
   const changeQuantity = (item, value) =>
     dispatch(changeItemQuantity(item, value));
 
@@ -85,6 +87,7 @@ const useCart = () => {
     onClear,
     changeQuantity,
     closeOrder,
+    clearCartSignOut,
   };
 };
 
