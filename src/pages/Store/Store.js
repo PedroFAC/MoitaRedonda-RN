@@ -1,6 +1,6 @@
 import { Container } from 'native-base';
 import React from 'react';
-import { Button } from 'react-native-paper';
+import LargeButton from '../../components/LargeButton/LargeButton';
 import StoreProductsList from '../../components/StoreProductsList/StoreProductsList';
 import { useFirebaseAuth } from '../../helpers/hooks';
 
@@ -9,13 +9,9 @@ const Store = () => {
   return (
     <Container>
       <StoreProductsList />
-      <Button
-        mode="contained"
-        color="#DB4437"
-        onPress={() => fireBaseSignout()}
-      >
+      <LargeButton color="#DB4437" onPress={() => fireBaseSignout()}>
         Encerrar sessão
-      </Button>
+      </LargeButton>
     </Container>
   );
 };

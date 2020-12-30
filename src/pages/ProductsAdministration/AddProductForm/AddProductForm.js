@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text } from 'react-native';
-import { Button } from 'react-native-paper';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
 import { Container } from 'native-base';
@@ -10,6 +9,7 @@ import {
 } from '../../../components/sharedComponents/sharedComponents';
 import { productSchema } from '../../../helpers/schemas/productSchema';
 import { useProductsFirestore } from '../../../helpers/hooks';
+import LargeButton from '../../../components/LargeButton/LargeButton';
 
 const AddProductForm = () => {
   const { addProduct } = useProductsFirestore();
@@ -61,9 +61,9 @@ const AddProductForm = () => {
               <Text>{errors.owner}</Text>
             </Wrapper>
           </ScrollView>
-          <Button mode="contained" onPress={handleSubmit}>
+          <LargeButton mode="contained" onPress={handleSubmit}>
             Confirmar
-          </Button>
+          </LargeButton>
         </Container>
       )}
     </Formik>

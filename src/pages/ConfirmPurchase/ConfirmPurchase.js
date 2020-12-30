@@ -1,7 +1,7 @@
 import { Card, CardItem, Container, Left, Right, Text } from 'native-base';
 import React from 'react';
-import { Button } from 'react-native-paper';
 import CartStatusCard from '../../components/CartStatusCard/CartStatusCard';
+import LargeButton from '../../components/LargeButton/LargeButton';
 import { useCart } from '../../helpers/hooks';
 
 const ConfirmPurchase = () => {
@@ -24,16 +24,9 @@ const ConfirmPurchase = () => {
           ))}
         </Card>
       </Container>
-      <Button
-        icon="whatsapp"
-        mode="contained"
-        color="#66bb6a"
-        labelStyle={{ color: 'white', fontSize: 18 }}
-        uppercase={false}
-        onPress={() => closeOrder()}
-      >
+      <LargeButton icon="whatsapp" color="#66bb6a" onPress={() => closeOrder()}>
         Finalizar pedido por WhatsApp
-      </Button>
+      </LargeButton>
     </Container>
   );
 };

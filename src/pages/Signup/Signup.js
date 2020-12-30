@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { Formik } from 'formik';
 import {
   Input,
-  Container,
+  Wrapper,
   CustomButton,
   ButtonsContainer,
 } from '../../components/sharedComponents/sharedComponents';
@@ -20,7 +20,7 @@ const Signup = () => {
       onSubmit={({ email, password }) => firebaseSignUp(email, password)}
     >
       {({ handleChange, values, handleSubmit, errors }) => (
-        <Container>
+        <Wrapper>
           <Input
             mode="outlined"
             label="Email"
@@ -59,7 +59,7 @@ const Signup = () => {
               Confirmar
             </CustomButton>
           </ButtonsContainer>
-        </Container>
+        </Wrapper>
       )}
     </Formik>
   );
