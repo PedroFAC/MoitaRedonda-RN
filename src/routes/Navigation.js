@@ -10,6 +10,7 @@ import AddProductForm from '../pages/ProductsAdministration/AddProductForm/AddPr
 import EditProductForm from '../pages/ProductsAdministration/EditProductForm/EditProductForm';
 import StoreProductPage from '../pages/StoreProductPage/StoreProductPage';
 import Cart from '../pages/Cart/Cart';
+import ConfirmPurchase from '../pages/ConfirmPurchase/ConfirmPurchase';
 
 const Navigation = () => {
   const { Screen, Navigator } = createStackNavigator();
@@ -55,6 +56,11 @@ const Navigation = () => {
           options={{ title: 'Carrinho' }}
           name={routesEnum.cart}
           component={Cart}
+        />
+        <Screen
+          options={{ title: 'Confirmar compra' }}
+          name={routesEnum.confirmPurchase}
+          component={ConfirmPurchase}
         />
       </Navigator>
     </NavigationContainer>
