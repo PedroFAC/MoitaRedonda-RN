@@ -60,19 +60,18 @@ const useCart = () => {
     dispatch(changeItemQuantity(item, value));
 
   const closeOrder = async () => {
-    const builtString = `Olá, gostaria de confirmar meu pedido no valor de R$ ${totalCost} que contem os seguintes itens:
-      ${cart.map(
-        (item) => `${item.quantity}x ${item.name} - R$ ${item.price}, \n`
-      )}
+    const builtString = `Olá, gostaria de confirmar meu pedido no valor de R$ ${totalCost} que contem os seguintes itens: ${cart.map(
+      (item) => `%0A${item.quantity}x ${item.name} - R$ ${item.price}`
+    )}
     `;
 
     try {
       await Linking.openURL(
-        `whatsapp://send?text=${builtString}&phone=+5585997970116`
+        `whatsapp://send?text=${builtString}&phone=+5585998087654`
       );
     } catch {
       await Linking.openURL(
-        `https://api.whatsapp.com/send?text=${builtString}&phone=+5585997970116`
+        `https://api.whatsapp.com/send?text=${builtString}&phone=+5585998087654`
       );
     }
   };

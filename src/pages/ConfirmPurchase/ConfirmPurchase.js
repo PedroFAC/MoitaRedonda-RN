@@ -1,23 +1,19 @@
 import { Card, CardItem, Container, Left, Right, Text } from 'native-base';
 import React from 'react';
 import { Button } from 'react-native-paper';
+import CartStatusCard from '../../components/CartStatusCard/CartStatusCard';
 import { useCart } from '../../helpers/hooks';
 
 const ConfirmPurchase = () => {
-  const { cart, totalCost, totalItems, closeOrder } = useCart();
+  const { cart, closeOrder } = useCart();
 
   return (
     <Container>
       <Container style={{ flex: 1 }}>
         <Card>
-          <CardItem>
-            <Text>Total de itens: {totalItems}</Text>
-          </CardItem>
-          <CardItem>
-            <Text>Valor total: R$ {totalCost}</Text>
-          </CardItem>
+          <CartStatusCard />
           {cart.map((item) => (
-            <CardItem>
+            <CardItem key={item.key}>
               <Left>
                 <Text>{`${item.quantity}x ${item.name}`}</Text>
               </Left>

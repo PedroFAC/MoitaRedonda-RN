@@ -1,4 +1,4 @@
-import { Card, CardItem, Container, Icon, List, Text } from 'native-base';
+import { Card, Container, Icon, List, Text } from 'native-base';
 import React from 'react';
 import { Button } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
@@ -6,9 +6,10 @@ import CartListItem from '../../components/CartListItem/CartListItem';
 import { useCart } from '../../helpers/hooks';
 import { Container as EmptyContainer } from '../../components/sharedComponents/sharedComponents';
 import routesEnum from '../../routes/routesConstants';
+import CartStatusCard from '../../components/CartStatusCard/CartStatusCard';
 
 const Cart = () => {
-  const { cart, totalItems, totalCost, onClear } = useCart();
+  const { cart, onClear } = useCart();
   const { navigate } = useNavigation();
   return (
     <Container>
@@ -26,12 +27,7 @@ const Cart = () => {
         )}
       </Container>
       <Card>
-        <CardItem>
-          <Text>Total de itens: {totalItems}</Text>
-        </CardItem>
-        <CardItem>
-          <Text>Valor total: R$ {totalCost}</Text>
-        </CardItem>
+        <CartStatusCard />
       </Card>
       <Button
         disabled={cart.length < 1}
