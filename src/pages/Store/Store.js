@@ -6,6 +6,7 @@ import { useFirebaseAuth } from '../../helpers/hooks';
 
 const Store = () => {
   const { fireBaseSignout } = useFirebaseAuth();
+
   return (
     <Container>
       <StoreProductsList />
