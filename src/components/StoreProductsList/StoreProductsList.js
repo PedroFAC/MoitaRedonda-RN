@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native';
 import { Container, Spinner } from 'native-base';
@@ -22,7 +22,7 @@ const StoreProductsList = () => {
       <ErrorMessageComponent message="Erro ao carregar" />
     );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setLoading(true);
     const subscriber = firestore()
       .collection('Products')

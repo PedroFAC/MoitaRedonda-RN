@@ -12,7 +12,7 @@ import { useProductsFirestore } from '../../../helpers/hooks';
 import LargeButton from '../../../components/LargeButton/LargeButton';
 
 const AddProductForm = () => {
-  const { addProduct } = useProductsFirestore();
+  const { addProduct, isLoading } = useProductsFirestore();
 
   return (
     <Formik
@@ -30,6 +30,7 @@ const AddProductForm = () => {
                 mode="outlined"
                 onChangeText={handleChange('name')}
                 error={errors.name}
+                disabled={isLoading}
               />
               <Text>{errors.name}</Text>
               <Input
@@ -38,6 +39,7 @@ const AddProductForm = () => {
                 mode="outlined"
                 onChangeText={handleChange('description')}
                 error={errors.description}
+                disabled={isLoading}
               />
               <Text>{errors.description}</Text>
 
@@ -48,6 +50,7 @@ const AddProductForm = () => {
                 onChangeText={handleChange('price')}
                 keyboardType="number-pad"
                 error={errors.price}
+                disabled={isLoading}
               />
               <Text>{errors.price}</Text>
 
@@ -57,11 +60,16 @@ const AddProductForm = () => {
                 mode="outlined"
                 onChangeText={handleChange('owner')}
                 error={errors.owner}
+                disabled={isLoading}
               />
               <Text>{errors.owner}</Text>
             </Wrapper>
           </ScrollView>
-          <LargeButton mode="contained" onPress={handleSubmit}>
+          <LargeButton
+            disabled={isLoading}
+            mode="contained"
+            onPress={handleSubmit}
+          >
             Confirmar
           </LargeButton>
         </Container>
