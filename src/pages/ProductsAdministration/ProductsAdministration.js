@@ -2,18 +2,21 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native-gesture-handler';
-import { Container } from 'native-base';
+import { Container, H3, Icon, Spinner } from 'native-base';
 import ProductsListItem from '../../components/ProductsListItem/ProductsListItem';
 import { useFirebaseAuth, useProductsFirestore } from '../../helpers/hooks';
 import routesEnum from '../../routes/routesConstants';
 import LargeButton from '../../components/LargeButton/LargeButton';
+import { Wrapper } from '../../components/sharedComponents/sharedComponents';
 
 const ProductsAdministration = () => {
   const { fireBaseSignout } = useFirebaseAuth();
   const { deleteProduct } = useProductsFirestore();
   const { navigate } = useNavigation();
   const [list, setList] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
+    setLoading(true);
     const subscriber = firestore()
       .collection('Products')
       .onSnapshot((querySnapshot) => {
@@ -27,14 +30,16 @@ const ProductsAdministration = () => {
         });
 
         setList(products);
+        setLoading(false);
       });
 
     // Unsubscribe from events when no longer in use
+
     return () => subscriber();
   }, []);
 
-  return (
-    <Container>
+  const List = () =>
+    list?.length > 0 ? (
       <FlatList
         data={list}
         renderItem={({ item }) => (
@@ -48,6 +53,23 @@ const ProductsAdministration = () => {
           />
         )}
       />
+    ) : (
+      <Wrapper>
+        <Icon name="alert" />
+        <H3>Os produtos adicionados a listagem estarão disponíveis aqui</H3>
+      </Wrapper>
+    );
+
+  return (
+    <Container>
+      {loading ? (
+        <Wrapper>
+          <Spinner color="blue" />
+        </Wrapper>
+      ) : (
+        <List />
+      )}
+
       <LargeButton onPress={() => navigate(routesEnum.addProductForm)}>
         Adicionar produto
       </LargeButton>

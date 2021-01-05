@@ -1,14 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native';
-import { Container } from 'native-base';
+import { Container, H3, Icon, Spinner } from 'native-base';
 import StoreListItem from '../StoreListItem/StoreListItem';
 import CartFab from '../CartFab/CartFab';
+import { Wrapper } from '../sharedComponents/sharedComponents';
 
 const StoreProductsList = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const List = () =>
+    data?.length > 0 ? (
+      <FlatList
+        data={data}
+        renderItem={({ item }) => <StoreListItem item={item} />}
+        keyExtractor={(item) => item.key}
+      />
+    ) : (
+      <Wrapper>
+        <Icon name="alert" />
+        <H3>Erro ao Carregar</H3>
+      </Wrapper>
+    );
 
   useEffect(() => {
+    setLoading(true);
     const subscriber = firestore()
       .collection('Products')
       .onSnapshot((querySnapshot) => {
@@ -22,6 +39,7 @@ const StoreProductsList = () => {
         });
 
         setData(products);
+        setLoading(false);
       });
 
     // Unsubscribe from events when no longer in use
@@ -30,11 +48,14 @@ const StoreProductsList = () => {
 
   return (
     <Container>
-      <FlatList
-        data={data}
-        renderItem={({ item }) => <StoreListItem item={item} />}
-        keyExtractor={(item) => item.key}
-      />
+      {loading ? (
+        <Wrapper>
+          <Spinner color="blue" />
+        </Wrapper>
+      ) : (
+        <List />
+      )}
+
       <CartFab />
     </Container>
   );
