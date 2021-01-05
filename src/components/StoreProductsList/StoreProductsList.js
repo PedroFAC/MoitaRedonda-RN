@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native';
-import { Container, H3, Icon, Spinner } from 'native-base';
+import { Container, Spinner } from 'native-base';
 import StoreListItem from '../StoreListItem/StoreListItem';
 import CartFab from '../CartFab/CartFab';
 import { Wrapper } from '../sharedComponents/sharedComponents';
+import ErrorMessageComponent from '../ErrorMessageComponent/ErrorMessageComponent';
 
 const StoreProductsList = () => {
   const [data, setData] = useState([]);
@@ -18,10 +19,7 @@ const StoreProductsList = () => {
         keyExtractor={(item) => item.key}
       />
     ) : (
-      <Wrapper>
-        <Icon name="alert" />
-        <H3>Erro ao Carregar</H3>
-      </Wrapper>
+      <ErrorMessageComponent message="Erro ao carregar" />
     );
 
   useEffect(() => {
