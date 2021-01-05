@@ -5,9 +5,10 @@ import useCart from './useCart';
 const useFirebaseAuth = () => {
   const { clearCartSignOut } = useCart();
 
-  const firebaseSignUp = async (email, password) => {
+  const firebaseSignUp = async (username, email, password) => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
+      await auth().currentUser.updateProfile({ displayName: username });
     } catch (error) {
       Toast.show({ text: String(error), type: 'danger' });
     }

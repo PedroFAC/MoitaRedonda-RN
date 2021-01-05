@@ -1,6 +1,10 @@
 import * as yup from 'yup';
 
 export const userSchema = yup.object({
+  username: yup
+    .string()
+    .required('Por favor insira um nome de usuário')
+    .min(4, 'Nome de usuário precisa ter no mínimo 4 caracteres!'),
   email: yup
     .string()
     .required('Por favor insira um e-mail')
