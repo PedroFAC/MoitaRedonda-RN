@@ -1,17 +1,14 @@
 import auth from '@react-native-firebase/auth';
-import { useNavigation } from '@react-navigation/native';
 import { Toast } from 'native-base';
-import routesEnum from '../../routes/routesConstants';
 import useCart from './useCart';
 
 const useFirebaseAuth = () => {
-  const { navigate } = useNavigation();
   const { clearCartSignOut } = useCart();
 
-  const firebaseSignUp = async (email, password) => {
+  const firebaseSignUp = async (username, email, password) => {
     try {
       await auth().createUserWithEmailAndPassword(email, password);
-      navigate(routesEnum.home);
+      await auth().currentUser.updateProfile({ displayName: username });
     } catch (error) {
       Toast.show({ text: String(error), type: 'danger' });
     }
@@ -20,7 +17,6 @@ const useFirebaseAuth = () => {
   const firebaseSignIn = async (email, password) => {
     try {
       await auth().signInWithEmailAndPassword(email, password);
-      navigate(routesEnum.store);
     } catch (error) {
       Toast.show({ text: String(error), type: 'danger' });
     }
@@ -30,7 +26,6 @@ const useFirebaseAuth = () => {
     try {
       await auth().signOut();
       clearCartSignOut();
-      navigate(routesEnum.home);
     } catch (error) {
       Toast.show({ text: String(error), type: 'danger' });
     }
