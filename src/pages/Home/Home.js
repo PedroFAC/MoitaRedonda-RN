@@ -14,7 +14,7 @@ import { loginSchema } from '../../helpers/schemas/loginSchema';
 
 const Home = () => {
   const { navigate } = useNavigation();
-  const { firebaseSignIn } = useFirebaseAuth();
+  const { firebaseSignIn, isLoading } = useFirebaseAuth();
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
@@ -29,6 +29,7 @@ const Home = () => {
             value={values.email}
             keyboardType="email-address"
             onChangeText={handleChange('email')}
+            disabled={isLoading}
           />
           <Text>{errors.email}</Text>
 
@@ -38,6 +39,7 @@ const Home = () => {
             value={values.password}
             secureTextEntry
             onChangeText={handleChange('password')}
+            disabled={isLoading}
           />
           <Text>{errors.password}</Text>
 
@@ -46,6 +48,7 @@ const Home = () => {
               onPress={handleSubmit}
               uppercase={false}
               mode="contained"
+              disabled={isLoading}
             >
               Entrar
             </CustomButton>
@@ -53,6 +56,7 @@ const Home = () => {
               uppercase={false}
               mode="contained"
               onPress={() => navigate(routesEnum.signup)}
+              disabled={isLoading}
             >
               Cadastre-se
             </CustomButton>

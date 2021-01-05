@@ -14,7 +14,7 @@ import LargeButton from '../../../components/LargeButton/LargeButton';
 const EditProductForm = () => {
   const { params } = useRoute();
   const { product } = params;
-  const { editProduct, deleteProduct } = useProductsFirestore();
+  const { editProduct, deleteProduct, isLoading } = useProductsFirestore();
 
   return (
     <Formik
@@ -44,6 +44,7 @@ const EditProductForm = () => {
                 mode="outlined"
                 onChangeText={handleChange('name')}
                 error={errors.name}
+                disabled={isLoading}
               />
               <Text>{errors.name}</Text>
               <Input
@@ -52,6 +53,7 @@ const EditProductForm = () => {
                 mode="outlined"
                 onChangeText={handleChange('description')}
                 error={errors.description}
+                disabled={isLoading}
               />
               <Text>{errors.description}</Text>
 
@@ -62,6 +64,7 @@ const EditProductForm = () => {
                 onChangeText={handleChange('price')}
                 keyboardType="number-pad"
                 error={errors.price}
+                disabled={isLoading}
               />
               <Text>{errors.price}</Text>
 
@@ -71,12 +74,19 @@ const EditProductForm = () => {
                 mode="outlined"
                 onChangeText={handleChange('owner')}
                 error={errors.owner}
+                disabled={isLoading}
               />
               <Text>{errors.owner}</Text>
             </Wrapper>
           </ScrollView>
-          <LargeButton onPress={handleSubmit}>Editar produto</LargeButton>
-          <LargeButton color="#DB4437" onPress={() => deleteProduct(values)}>
+          <LargeButton disabled={isLoading} onPress={handleSubmit}>
+            Editar produto
+          </LargeButton>
+          <LargeButton
+            disabled={isLoading}
+            color="#DB4437"
+            onPress={() => deleteProduct(values)}
+          >
             Deletar produto
           </LargeButton>
         </>

@@ -1,12 +1,12 @@
-import { Card, Container, Icon, List, Text } from 'native-base';
+import { Card, Container, List } from 'native-base';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import CartListItem from '../../components/CartListItem/CartListItem';
 import { useCart } from '../../helpers/hooks';
-import { Wrapper } from '../../components/sharedComponents/sharedComponents';
 import routesEnum from '../../routes/routesConstants';
 import CartStatusCard from '../../components/CartStatusCard/CartStatusCard';
 import LargeButton from '../../components/LargeButton/LargeButton';
+import ErrorMessageComponent from '../../components/ErrorMessageComponent/ErrorMessageComponent';
 
 const Cart = () => {
   const { cart, onClear } = useCart();
@@ -15,10 +15,7 @@ const Cart = () => {
     <Container>
       <Container>
         {cart.length === 0 ? (
-          <Wrapper>
-            <Icon name="alert" />
-            <Text>Seus itens adicionados aparecerão aqui</Text>
-          </Wrapper>
+          <ErrorMessageComponent message="Seus itens adicionados aparecerão aqui" />
         ) : (
           <List
             dataArray={cart}
