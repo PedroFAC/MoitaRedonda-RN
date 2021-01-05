@@ -13,6 +13,7 @@ import StoreProductPage from '../pages/StoreProductPage/StoreProductPage';
 import Cart from '../pages/Cart/Cart';
 import ConfirmPurchase from '../pages/ConfirmPurchase/ConfirmPurchase';
 import { AuthContext } from './AuthContext';
+import { ADMIN_EMAIL } from '../constants/admin';
 
 const Navigation = () => {
   const { Screen, Navigator } = createStackNavigator();
@@ -43,45 +44,49 @@ const Navigation = () => {
     </Navigator>
   );
 
-  const SignedInStack = () => (
-    <Navigator initialRouteName={routesEnum.store}>
-      <Screen
-        options={{ title: 'Loja', headerLeft: null }}
-        name={routesEnum.store}
-        component={Store}
-      />
-      <Screen
-        options={{ title: 'Produto' }}
-        name={routesEnum.storeProduct}
-        component={StoreProductPage}
-      />
-      <Screen
-        options={{ title: 'Administração de produtos', headerLeft: null }}
-        name={routesEnum.productsAdmin}
-        component={ProductsAdministration}
-      />
-      <Screen
-        options={{ title: 'Adicionar Produto' }}
-        name={routesEnum.addProductForm}
-        component={AddProductForm}
-      />
-      <Screen
-        options={{ title: 'Editar Produto' }}
-        name={routesEnum.editProductForm}
-        component={EditProductForm}
-      />
-      <Screen
-        options={{ title: 'Carrinho' }}
-        name={routesEnum.cart}
-        component={Cart}
-      />
-      <Screen
-        options={{ title: 'Confirmar compra' }}
-        name={routesEnum.confirmPurchase}
-        component={ConfirmPurchase}
-      />
-    </Navigator>
-  );
+  const SignedInStack = () =>
+    user?.email === ADMIN_EMAIL ? (
+      <Navigator initialRouteName={routesEnum.productsAdmin}>
+        <Screen
+          options={{ title: 'Administração de produtos', headerLeft: null }}
+          name={routesEnum.productsAdmin}
+          component={ProductsAdministration}
+        />
+        <Screen
+          options={{ title: 'Adicionar Produto' }}
+          name={routesEnum.addProductForm}
+          component={AddProductForm}
+        />
+        <Screen
+          options={{ title: 'Editar Produto' }}
+          name={routesEnum.editProductForm}
+          component={EditProductForm}
+        />
+      </Navigator>
+    ) : (
+      <Navigator initialRouteName={routesEnum.store}>
+        <Screen
+          options={{ title: 'Loja', headerLeft: null }}
+          name={routesEnum.store}
+          component={Store}
+        />
+        <Screen
+          options={{ title: 'Produto' }}
+          name={routesEnum.storeProduct}
+          component={StoreProductPage}
+        />
+        <Screen
+          options={{ title: 'Carrinho' }}
+          name={routesEnum.cart}
+          component={Cart}
+        />
+        <Screen
+          options={{ title: 'Confirmar compra' }}
+          name={routesEnum.confirmPurchase}
+          component={ConfirmPurchase}
+        />
+      </Navigator>
+    );
 
   useEffect(() => {
     const authSubscriber = auth().onAuthStateChanged(watchUserChanges);
