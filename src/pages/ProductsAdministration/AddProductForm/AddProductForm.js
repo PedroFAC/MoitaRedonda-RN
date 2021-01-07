@@ -1,8 +1,9 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useState } from 'react';
+import { Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
 import { Container } from 'native-base';
+import { Button } from 'react-native-paper';
 import {
   Wrapper,
   Input,
@@ -10,9 +11,11 @@ import {
 import { productSchema } from '../../../helpers/schemas/productSchema';
 import { useProductsFirestore } from '../../../helpers/hooks';
 import LargeButton from '../../../components/LargeButton/LargeButton';
+import { pickFromCamera, pickFromGallery } from '../../../helpers/imgPicker';
 
 const AddProductForm = () => {
   const { addProduct, isLoading } = useProductsFirestore();
+  const [imgsrc, setImgsrc] = useState('');
 
   return (
     <Formik
@@ -64,6 +67,23 @@ const AddProductForm = () => {
               />
               <Text>{errors.owner}</Text>
             </Wrapper>
+            <Image
+              source={{ uri: imgsrc }}
+              width={300}
+              height={300}
+              style={{
+                borderColor: 'black',
+                borderWidth: 1,
+                alignSelf: 'center',
+                backgroundColor: 'lightgrey',
+              }}
+            />
+            <Button onPress={() => pickFromGallery(setImgsrc)}>
+              Escolher imagem da galeria
+            </Button>
+            <Button onPress={() => pickFromCamera(setImgsrc)}>
+              Tirar foto
+            </Button>
           </ScrollView>
           <LargeButton
             disabled={isLoading}
