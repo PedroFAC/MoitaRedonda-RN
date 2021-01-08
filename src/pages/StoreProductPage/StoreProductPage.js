@@ -9,8 +9,9 @@ import { CardImage } from './styles';
 
 const StoreProductPage = () => {
   const { params } = useRoute();
-  const { name, description, price, owner } = params;
+  const { name, description, price, owner, downloadUrl } = params;
   const { addProductToCart } = useCart();
+  const image = downloadUrl ? { uri: downloadUrl } : productDefault;
 
   return (
     <>
@@ -25,7 +26,7 @@ const StoreProductPage = () => {
         </CardItem>
         <CardItem>
           <Body>
-            <CardImage source={productDefault} />
+            <CardImage source={image} />
           </Body>
         </CardItem>
         <CardItem>

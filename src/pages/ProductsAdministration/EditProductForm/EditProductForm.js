@@ -1,8 +1,10 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useState } from 'react';
+import { Image, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
+import { Button } from 'react-native-paper';
+import { Container } from 'native-base';
 import {
   Wrapper,
   Input,
@@ -10,12 +12,13 @@ import {
 import { productSchema } from '../../../helpers/schemas/productSchema';
 import { useProductsFirestore } from '../../../helpers/hooks';
 import LargeButton from '../../../components/LargeButton/LargeButton';
+import { pickFromCamera, pickFromGallery } from '../../../helpers/imgPicker';
 
 const EditProductForm = () => {
   const { params } = useRoute();
   const { product } = params;
   const { editProduct, deleteProduct, isLoading } = useProductsFirestore();
-
+  const [imgsrc, setImgsrc] = useState(product.downloadUrl);
   return (
     <Formik
       initialValues={{
@@ -26,10 +29,10 @@ const EditProductForm = () => {
         owner: product.owner,
       }}
       validationSchema={productSchema}
-      onSubmit={(values) => editProduct(values)}
+      onSubmit={(values) => editProduct({ ...values, imgurl: imgsrc })}
     >
       {({ handleChange, values, handleSubmit, errors }) => (
-        <>
+        <Container>
           <ScrollView>
             <Wrapper>
               <Input
@@ -78,6 +81,23 @@ const EditProductForm = () => {
               />
               <Text>{errors.owner}</Text>
             </Wrapper>
+            <Image
+              source={{ uri: imgsrc, height: 300, width: 300 }}
+              width={300}
+              height={300}
+              style={{
+                borderColor: 'black',
+                borderWidth: 1,
+                alignSelf: 'center',
+                backgroundColor: 'lightgrey',
+              }}
+            />
+            <Button onPress={() => pickFromGallery(setImgsrc)}>
+              Escolher imagem da galeria
+            </Button>
+            <Button onPress={() => pickFromCamera(setImgsrc)}>
+              Tirar foto
+            </Button>
           </ScrollView>
           <LargeButton disabled={isLoading} onPress={handleSubmit}>
             Editar produto
@@ -89,7 +109,7 @@ const EditProductForm = () => {
           >
             Deletar produto
           </LargeButton>
-        </>
+        </Container>
       )}
     </Formik>
   );

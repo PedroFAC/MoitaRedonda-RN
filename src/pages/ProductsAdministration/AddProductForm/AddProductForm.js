@@ -21,7 +21,7 @@ const AddProductForm = () => {
     <Formik
       initialValues={{ name: '', description: '', price: '', owner: '' }}
       validationSchema={productSchema}
-      onSubmit={(values) => addProduct(values)}
+      onSubmit={(values) => addProduct({ ...values, imgurl: imgsrc })}
     >
       {({ handleChange, values, handleSubmit, errors }) => (
         <Container>
