@@ -16,11 +16,12 @@ import { useCart } from '../../helpers/hooks';
 
 const CartListItem = ({ item }) => {
   const { removeProductFromCart } = useCart();
+  const image = item.downloadUrl ? { uri: item.downloadUrl } : productDefault;
 
   return (
     <ListItem>
       <Left>
-        <Thumbnail source={productDefault} />
+        <Thumbnail source={image} />
         <Body>
           <Text>{item.name}</Text>
           <Text note>Preço: R${item.price}</Text>
@@ -43,5 +44,6 @@ CartListItem.propTypes = {
     name: PropTypes.string,
     price: PropTypes.string,
     quantity: PropTypes.number,
+    downloadUrl: PropTypes.string,
   }).isRequired,
 };
