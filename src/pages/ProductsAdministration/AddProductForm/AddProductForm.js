@@ -15,13 +15,13 @@ import { pickFromCamera, pickFromGallery } from '../../../helpers/imgPicker';
 
 const AddProductForm = () => {
   const { addProduct, isLoading } = useProductsFirestore();
-  const [imgsrc, setImgsrc] = useState('');
+  const [imgurl, setImgUrl] = useState('');
 
   return (
     <Formik
       initialValues={{ name: '', description: '', price: '', owner: '' }}
       validationSchema={productSchema}
-      onSubmit={(values) => addProduct({ ...values, imgurl: imgsrc })}
+      onSubmit={(values) => addProduct({ ...values, imgurl })}
     >
       {({ handleChange, values, handleSubmit, errors }) => (
         <Container>
@@ -68,7 +68,7 @@ const AddProductForm = () => {
               <Text>{errors.owner}</Text>
             </Wrapper>
             <Image
-              source={{ uri: imgsrc }}
+              source={{ uri: imgurl }}
               width={300}
               height={300}
               style={{
@@ -78,10 +78,10 @@ const AddProductForm = () => {
                 backgroundColor: 'lightgrey',
               }}
             />
-            <Button onPress={() => pickFromGallery(setImgsrc)}>
+            <Button onPress={() => pickFromGallery(setImgUrl)}>
               Escolher imagem da galeria
             </Button>
-            <Button onPress={() => pickFromCamera(setImgsrc)}>
+            <Button onPress={() => pickFromCamera(setImgUrl)}>
               Tirar foto
             </Button>
           </ScrollView>

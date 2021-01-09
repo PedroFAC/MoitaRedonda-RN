@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, Text } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -18,7 +18,15 @@ const EditProductForm = () => {
   const { params } = useRoute();
   const { product } = params;
   const { editProduct, deleteProduct, isLoading } = useProductsFirestore();
-  const [imgsrc, setImgsrc] = useState(product.downloadUrl);
+  const [imgurl, setImgUrl] = useState(product.downloadUrl);
+  const [hasChangedImg, setHasChangedImg] = useState(false);
+
+  useEffect(() => {
+    if (imgurl !== product.downloadUrl) {
+      setHasChangedImg(true);
+    }
+  }, [imgurl]);
+
   return (
     <Formik
       initialValues={{
@@ -29,7 +37,7 @@ const EditProductForm = () => {
         owner: product.owner,
       }}
       validationSchema={productSchema}
-      onSubmit={(values) => editProduct({ ...values, imgurl: imgsrc })}
+      onSubmit={(values) => editProduct({ ...values, imgurl, hasChangedImg })}
     >
       {({ handleChange, values, handleSubmit, errors }) => (
         <Container>
@@ -82,7 +90,7 @@ const EditProductForm = () => {
               <Text>{errors.owner}</Text>
             </Wrapper>
             <Image
-              source={{ uri: imgsrc, height: 300, width: 300 }}
+              source={{ uri: imgurl, height: 300, width: 300 }}
               width={300}
               height={300}
               style={{
@@ -92,10 +100,10 @@ const EditProductForm = () => {
                 backgroundColor: 'lightgrey',
               }}
             />
-            <Button onPress={() => pickFromGallery(setImgsrc)}>
+            <Button onPress={() => pickFromGallery(setImgUrl)}>
               Escolher imagem da galeria
             </Button>
-            <Button onPress={() => pickFromCamera(setImgsrc)}>
+            <Button onPress={() => pickFromCamera(setImgUrl)}>
               Tirar foto
             </Button>
           </ScrollView>

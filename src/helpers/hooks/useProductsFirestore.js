@@ -60,10 +60,11 @@ const useProductsFirestore = () => {
     owner,
     key,
     imgurl,
+    hasChangedImg,
   }) => {
     try {
       setIsLoading(true);
-      if (imgurl) {
+      if (hasChangedImg) {
         Toast.show({ text: 'Enviando Imagem', type: 'success' });
         const { downloadUrl, wholeFile } = await uploadImage(imgurl);
         await firestore().collection('Products').doc(key).update({
