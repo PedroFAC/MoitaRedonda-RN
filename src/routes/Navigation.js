@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import auth from '@react-native-firebase/auth';
+import PropTypes from 'prop-types';
 import Home from '../pages/Home/Home';
 import routesEnum from './routesConstants';
 import Signup from '../pages/Signup/Signup';
@@ -14,6 +15,7 @@ import Cart from '../pages/Cart/Cart';
 import ConfirmPurchase from '../pages/ConfirmPurchase/ConfirmPurchase';
 import { AuthContext } from './AuthContext';
 import { ADMIN_EMAIL } from '../constants/admin';
+import { theme } from '../components/sharedComponents/theme';
 
 const Navigation = () => {
   const { Screen, Navigator } = createStackNavigator();
@@ -30,7 +32,18 @@ const Navigation = () => {
   const { Provider } = AuthContext;
 
   const SignedOutStack = () => (
-    <Navigator initialRouteName={routesEnum.home}>
+    <Navigator
+      initialRouteName={routesEnum.home}
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.colors.black,
+        },
+        headerTintColor: theme.colors.white,
+        headerTitleStyle: {
+          fontFamily: theme.fonts.heading1.fontFamily,
+        },
+      }}
+    >
       <Screen
         options={{ headerShown: false }}
         name={routesEnum.home}
@@ -46,7 +59,18 @@ const Navigation = () => {
 
   const SignedInStack = () =>
     user?.email === ADMIN_EMAIL ? (
-      <Navigator initialRouteName={routesEnum.productsAdmin}>
+      <Navigator
+        initialRouteName={routesEnum.productsAdmin}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: theme.colors.black,
+          },
+          headerTintColor: theme.colors.white,
+          headerTitleStyle: {
+            fontFamily: theme.fonts.heading1.fontFamily,
+          },
+        }}
+      >
         <Screen
           options={{ title: 'Administração de produtos', headerLeft: null }}
           name={routesEnum.productsAdmin}
@@ -64,9 +88,23 @@ const Navigation = () => {
         />
       </Navigator>
     ) : (
-      <Navigator initialRouteName={routesEnum.store}>
+      <Navigator
+        initialRouteName={routesEnum.store}
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: theme.colors.black,
+          },
+          headerTintColor: theme.colors.white,
+          headerTitleStyle: {
+            fontFamily: theme.fonts.heading1.fontFamily,
+          },
+        }}
+      >
         <Screen
-          options={{ title: 'Loja', headerLeft: null }}
+          options={{
+            title: 'Loja',
+            headerLeft: null,
+          }}
           name={routesEnum.store}
           component={Store}
         />
@@ -107,3 +145,12 @@ const Navigation = () => {
 };
 
 export default Navigation;
+
+StoreProductPage.propTypes = {
+  navigation: PropTypes.shape({
+    setOptions: PropTypes.func,
+  }),
+};
+StoreProductPage.defaultProps = {
+  navigation: null,
+};

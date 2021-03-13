@@ -2,6 +2,7 @@ import React from 'react';
 import NumericInput from 'react-native-numeric-input';
 import PropTypes from 'prop-types';
 import { useCart } from '../../helpers/hooks';
+import { theme } from '../sharedComponents/theme';
 
 const CartQuantityInput = ({ quantity, item }) => {
   const { changeQuantity } = useCart();
@@ -13,6 +14,11 @@ const CartQuantityInput = ({ quantity, item }) => {
       editable={false}
       totalWidth={100}
       rounded
+      containerStyle={{ borderWidth: 0 }}
+      leftButtonBackgroundColor={theme.colors.black}
+      rightButtonBackgroundColor={theme.colors.black}
+      iconStyle={{ color: theme.colors.white }}
+      style={{ fontFamily: theme.fonts.paragraph.fontFamily }}
       onChange={(value) => changeQuantity(item, value)}
     />
   );

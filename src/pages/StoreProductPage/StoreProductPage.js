@@ -1,55 +1,90 @@
 import { useRoute } from '@react-navigation/native';
-import { Body, Card, CardItem, H3, Right, Text } from 'native-base';
-import React from 'react';
+import { Body, Button, Icon } from 'native-base';
+import React, { useLayoutEffect } from 'react';
+import PropTypes from 'prop-types';
 import { productDefault } from '../../assets';
-import CartFab from '../../components/CartFab/CartFab';
-import { CardButton } from '../../components/sharedComponents/sharedComponents';
+import {
+  Container,
+  CardContainer,
+  CardHeader,
+  CardSection,
+  Price,
+  Paragraph,
+} from '../../components/sharedComponents/sharedComponents';
+import { theme } from '../../components/sharedComponents/theme';
 import { useCart } from '../../helpers/hooks';
-import { CardImage } from './styles';
+import routesEnum from '../../routes/routesConstants';
+import { AddToCartButton, CardImage } from './styles';
+import { ButtonText, OwnerText } from '../../components/StoreListItem/styles';
 
-const StoreProductPage = () => {
+const StoreProductPage = ({ navigation }) => {
   const { params } = useRoute();
   const { name, description, price, owner, downloadUrl } = params;
   const { addProductToCart } = useCart();
   const image = downloadUrl ? { uri: downloadUrl } : productDefault;
-
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button
+          onPress={() => navigation.navigate(routesEnum.cart)}
+          style={{ backgroundColor: theme.colors.black }}
+          rounded
+        >
+          <Icon name="cart" />
+        </Button>
+      ),
+    });
+  }, [navigation]);
   return (
-    <>
-      <Card>
-        <CardItem>
+    <Container>
+      <CardSection>
+        <Body>
+          <CardImage source={image} />
+        </Body>
+      </CardSection>
+      <CardContainer>
+        <CardSection>
           <Body>
-            <H3>{name}</H3>
+            <Price>{`R$ ${price}`}</Price>
           </Body>
-          <Right>
-            <Text note>{`R$ ${price}`}</Text>
-          </Right>
-        </CardItem>
-        <CardItem>
+          <AddToCartButton
+            onPress={() => addProductToCart(params)}
+            uppercase={false}
+            mode="contained"
+            rounded
+          >
+            <ButtonText>Ad. ao carrinho +</ButtonText>
+          </AddToCartButton>
+        </CardSection>
+        <CardSection>
           <Body>
-            <CardImage source={image} />
+            <CardHeader>{name}</CardHeader>
           </Body>
-        </CardItem>
-        <CardItem>
+        </CardSection>
+        <CardSection>
           <Body>
-            <Text note>Descrição:</Text>
-            <Text>{description}</Text>
+            <OwnerText>
+              Por: <OwnerText bold>{owner}</OwnerText>
+            </OwnerText>
           </Body>
-        </CardItem>
-        <CardItem>
+        </CardSection>
+        <CardSection>
           <Body>
-            <Text note>Criado por:</Text>
-            <Text>{owner}</Text>
+            <Paragraph>{description}</Paragraph>
           </Body>
-        </CardItem>
-        <CardItem footer>
-          <CardButton onPress={() => addProductToCart(params)} icon="cart">
-            Adicionar ao carrinho
-          </CardButton>
-        </CardItem>
-      </Card>
-      <CartFab />
-    </>
+        </CardSection>
+      </CardContainer>
+    </Container>
   );
 };
 
 export default StoreProductPage;
+
+StoreProductPage.propTypes = {
+  navigation: PropTypes.shape({
+    setOptions: PropTypes.func,
+  }),
+};
+StoreProductPage.defaultProps = {
+  navigation: null,
+};

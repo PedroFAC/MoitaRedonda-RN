@@ -1,11 +1,11 @@
 import React, { useLayoutEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native';
-import { Container, Spinner } from 'native-base';
+import { Spinner } from 'native-base';
 import StoreListItem from '../StoreListItem/StoreListItem';
-import CartFab from '../CartFab/CartFab';
-import { Wrapper } from '../sharedComponents/sharedComponents';
+import { Container, Wrapper } from '../sharedComponents/sharedComponents';
 import ErrorMessageComponent from '../ErrorMessageComponent/ErrorMessageComponent';
+import { theme } from '../sharedComponents/theme';
 
 const StoreProductsList = () => {
   const [data, setData] = useState([]);
@@ -15,6 +15,7 @@ const StoreProductsList = () => {
     data?.length > 0 ? (
       <FlatList
         data={data}
+        style={{ backgroundColor: theme.colors.beige }}
         renderItem={({ item }) => <StoreListItem item={item} />}
         keyExtractor={(item) => item.key}
       />
@@ -48,13 +49,11 @@ const StoreProductsList = () => {
     <Container>
       {loading ? (
         <Wrapper>
-          <Spinner color="blue" />
+          <Spinner color="black" />
         </Wrapper>
       ) : (
         <List />
       )}
-
-      <CartFab />
     </Container>
   );
 };

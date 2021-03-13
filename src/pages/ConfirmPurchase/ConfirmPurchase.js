@@ -1,7 +1,8 @@
-import { Card, CardItem, Container, Left, Right, Text } from 'native-base';
+import { Card, CardItem, Left, Right, Text } from 'native-base';
 import React from 'react';
 import CartStatusCard from '../../components/CartStatusCard/CartStatusCard';
 import LargeButton from '../../components/LargeButton/LargeButton';
+import { Container } from '../../components/sharedComponents/sharedComponents';
 import { useCart } from '../../helpers/hooks';
 
 const ConfirmPurchase = () => {

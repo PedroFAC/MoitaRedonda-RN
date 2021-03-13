@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Formik } from 'formik';
-import { ScrollView } from 'react-native-gesture-handler';
 import {
   Input,
   Wrapper,
@@ -15,21 +14,21 @@ const Signup = () => {
   const { firebaseSignUp, isLoading } = useFirebaseAuth();
 
   return (
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-        confirmPassword: '',
-        username: '',
-      }}
-      validationSchema={userSchema}
-      onSubmit={({ username, email, password }) =>
-        firebaseSignUp(username, email, password)
-      }
-    >
-      {({ handleChange, values, handleSubmit, errors }) => (
-        <ScrollView>
-          <Wrapper>
+    <Wrapper>
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+          confirmPassword: '',
+          username: '',
+        }}
+        validationSchema={userSchema}
+        onSubmit={({ username, email, password }) =>
+          firebaseSignUp(username, email, password)
+        }
+      >
+        {({ handleChange, values, handleSubmit, errors }) => (
+          <>
             <Input
               mode="outlined"
               label="Nome de usuário"
@@ -79,10 +78,10 @@ const Signup = () => {
                 Confirmar
               </CustomButton>
             </ButtonsContainer>
-          </Wrapper>
-        </ScrollView>
-      )}
-    </Formik>
+          </>
+        )}
+      </Formik>
+    </Wrapper>
   );
 };
 

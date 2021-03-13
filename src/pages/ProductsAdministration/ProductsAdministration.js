@@ -2,12 +2,15 @@ import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native-gesture-handler';
-import { Container, Spinner } from 'native-base';
+import { Spinner } from 'native-base';
 import ProductsListItem from '../../components/ProductsListItem/ProductsListItem';
 import { useFirebaseAuth, useProductsFirestore } from '../../helpers/hooks';
 import routesEnum from '../../routes/routesConstants';
 import LargeButton from '../../components/LargeButton/LargeButton';
-import { Wrapper } from '../../components/sharedComponents/sharedComponents';
+import {
+  Container,
+  Wrapper,
+} from '../../components/sharedComponents/sharedComponents';
 import ErrorMessageComponent from '../../components/ErrorMessageComponent/ErrorMessageComponent';
 
 const ProductsAdministration = () => {
@@ -71,7 +74,7 @@ const ProductsAdministration = () => {
       <LargeButton onPress={() => navigate(routesEnum.addProductForm)}>
         Adicionar produto
       </LargeButton>
-      <LargeButton color="#DB4437" onPress={() => fireBaseSignout()}>
+      <LargeButton onPress={() => fireBaseSignout()}>
         Encerrar sessão
       </LargeButton>
     </Container>
