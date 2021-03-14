@@ -54,13 +54,13 @@ export const CardSection = styled(CardItem)`
 
 export const CardHeader = styled(H3)`
   font-family: ${theme.fonts.heading2.fontFamily};
-  font-size: ${theme.fonts.heading2.fontSize};
+  font-size: ${theme.fonts.heading2.fontSize}px;
   color: ${theme.colors.red};
 `;
 
 export const Price = styled(Text)`
   font-family: ${theme.fonts.heading2.fontFamily};
-  font-size: ${theme.fonts.heading2.fontSize};
+  font-size: ${theme.fonts.heading2.fontSize}px;
   color: ${theme.colors.brown};
 `;
 
@@ -78,4 +78,10 @@ export const ButtonText = styled(Text)`
 export const OwnerText = styled(Text)`
   font-family: ${theme.fonts.paragraph.fontFamily};
   font-weight: ${(props) => (props.bold ? 'bold' : 'normal')};
+`;
+
+export const SmallPrice = styled(Text)`
+  font-family: ${theme.fonts.heading3.fontFamily};
+  font-size: ${theme.fonts.heading3.fontSize}px;
+  color: ${theme.colors.brown};
 `;

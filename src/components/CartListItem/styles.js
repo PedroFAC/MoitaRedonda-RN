@@ -10,7 +10,7 @@ export const ProductImage = styled(Thumbnail)`
 
 export const ProductHeader = styled(Text)`
   font-family: ${theme.fonts.heading3.fontFamily};
-  font-size: ${theme.fonts.heading3.fontSize};
+  font-size: ${theme.fonts.heading3.fontSize}px;
   color: ${theme.colors.red};
 `;
 

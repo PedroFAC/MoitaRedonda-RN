@@ -1,28 +1,33 @@
-import { Card, CardItem, Left, Right, Text } from 'native-base';
+import { Card, Left, Right } from 'native-base';
 import React from 'react';
 import CartStatusCard from '../../components/CartStatusCard/CartStatusCard';
 import LargeButton from '../../components/LargeButton/LargeButton';
-import { Container } from '../../components/sharedComponents/sharedComponents';
+import {
+  CardSection,
+  Container,
+  SmallPrice,
+} from '../../components/sharedComponents/sharedComponents';
 import { useCart } from '../../helpers/hooks';
+import { ProductName } from './styles';
 
 const ConfirmPurchase = () => {
   const { cart, closeOrder } = useCart();
 
   return (
     <Container>
-      <Container style={{ flex: 1 }}>
+      <Container>
         <Card>
-          <CartStatusCard />
           {cart.map((item) => (
-            <CardItem key={item.key}>
+            <CardSection key={item.key}>
               <Left>
-                <Text>{`${item.quantity}x ${item.name}`}</Text>
+                <ProductName>{`${item.quantity}x ${item.name}`}</ProductName>
               </Left>
               <Right>
-                <Text note>R$ {item.price}</Text>
+                <SmallPrice>R$ {item.price}</SmallPrice>
               </Right>
-            </CardItem>
+            </CardSection>
           ))}
+          <CartStatusCard />
         </Card>
       </Container>
       <LargeButton icon="whatsapp" color="#66bb6a" onPress={() => closeOrder()}>
