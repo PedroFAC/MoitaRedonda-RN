@@ -1,17 +1,17 @@
-import { CardItem, Text } from 'native-base';
 import React from 'react';
 import { useCart } from '../../helpers/hooks';
+import { CardSection, Paragraph } from '../sharedComponents/sharedComponents';
 
 const CartStatusCard = () => {
   const { totalCost, totalItems } = useCart();
   return (
     <>
-      <CardItem>
-        <Text>Total de itens: {totalItems}</Text>
-      </CardItem>
-      <CardItem>
-        <Text>Valor total: R$ {totalCost}</Text>
-      </CardItem>
+      <CardSection>
+        <Paragraph>Total de itens: {totalItems}</Paragraph>
+      </CardSection>
+      <CardSection>
+        <Paragraph>Valor total: R$ {totalCost}</Paragraph>
+      </CardSection>
     </>
   );
 };

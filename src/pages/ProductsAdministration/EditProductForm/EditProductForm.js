@@ -4,9 +4,8 @@ import { useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
 import { Button } from 'react-native-paper';
-import { Container } from 'native-base';
 import {
-  Wrapper,
+  Container,
   Input,
 } from '../../../components/sharedComponents/sharedComponents';
 import { productSchema } from '../../../helpers/schemas/productSchema';
@@ -42,53 +41,47 @@ const EditProductForm = () => {
       {({ handleChange, values, handleSubmit, errors }) => (
         <Container>
           <ScrollView>
-            <Wrapper>
-              <Input
-                label="Chave"
-                value={values.key}
-                mode="outlined"
-                disabled
-              />
-              <Input
-                label="Nome"
-                value={values.name}
-                mode="outlined"
-                onChangeText={handleChange('name')}
-                error={errors.name}
-                disabled={isLoading}
-              />
-              <Text>{errors.name}</Text>
-              <Input
-                label="Descrição"
-                value={values.description}
-                mode="outlined"
-                onChangeText={handleChange('description')}
-                error={errors.description}
-                disabled={isLoading}
-              />
-              <Text>{errors.description}</Text>
+            <Input label="Chave" value={values.key} mode="outlined" disabled />
+            <Input
+              label="Nome"
+              value={values.name}
+              mode="outlined"
+              onChangeText={handleChange('name')}
+              error={errors.name}
+              disabled={isLoading}
+            />
+            <Text>{errors.name}</Text>
+            <Input
+              label="Descrição"
+              value={values.description}
+              mode="outlined"
+              onChangeText={handleChange('description')}
+              error={errors.description}
+              disabled={isLoading}
+            />
+            <Text>{errors.description}</Text>
 
-              <Input
-                label="Preço"
-                value={values.price}
-                mode="outlined"
-                onChangeText={handleChange('price')}
-                keyboardType="number-pad"
-                error={errors.price}
-                disabled={isLoading}
-              />
-              <Text>{errors.price}</Text>
+            <Input
+              label="Preço"
+              value={values.price}
+              mode="outlined"
+              onChangeText={handleChange('price')}
+              keyboardType="number-pad"
+              error={errors.price}
+              disabled={isLoading}
+            />
+            <Text>{errors.price}</Text>
 
-              <Input
-                label="Produtor"
-                value={values.owner}
-                mode="outlined"
-                onChangeText={handleChange('owner')}
-                error={errors.owner}
-                disabled={isLoading}
-              />
-              <Text>{errors.owner}</Text>
-            </Wrapper>
+            <Input
+              label="Produtor"
+              value={values.owner}
+              mode="outlined"
+              onChangeText={handleChange('owner')}
+              error={errors.owner}
+              disabled={isLoading}
+            />
+            <Text>{errors.owner}</Text>
+
             <Image
               source={{ uri: imgurl, height: 300, width: 300 }}
               width={300}

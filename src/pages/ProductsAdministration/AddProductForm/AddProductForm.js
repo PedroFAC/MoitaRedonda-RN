@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Text, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
-import { Container } from 'native-base';
+
 import { Button } from 'react-native-paper';
 import {
-  Wrapper,
+  Container,
   Input,
 } from '../../../components/sharedComponents/sharedComponents';
 import { productSchema } from '../../../helpers/schemas/productSchema';
@@ -26,47 +26,45 @@ const AddProductForm = () => {
       {({ handleChange, values, handleSubmit, errors }) => (
         <Container>
           <ScrollView>
-            <Wrapper>
-              <Input
-                label="Nome"
-                value={values.name}
-                mode="outlined"
-                onChangeText={handleChange('name')}
-                error={errors.name}
-                disabled={isLoading}
-              />
-              <Text>{errors.name}</Text>
-              <Input
-                label="Descrição"
-                value={values.description}
-                mode="outlined"
-                onChangeText={handleChange('description')}
-                error={errors.description}
-                disabled={isLoading}
-              />
-              <Text>{errors.description}</Text>
+            <Input
+              label="Nome"
+              value={values.name}
+              mode="outlined"
+              onChangeText={handleChange('name')}
+              error={errors.name}
+              disabled={isLoading}
+            />
+            <Text>{errors.name}</Text>
+            <Input
+              label="Descrição"
+              value={values.description}
+              mode="outlined"
+              onChangeText={handleChange('description')}
+              error={errors.description}
+              disabled={isLoading}
+            />
+            <Text>{errors.description}</Text>
 
-              <Input
-                label="Preço"
-                value={values.price}
-                mode="outlined"
-                onChangeText={handleChange('price')}
-                keyboardType="number-pad"
-                error={errors.price}
-                disabled={isLoading}
-              />
-              <Text>{errors.price}</Text>
+            <Input
+              label="Preço"
+              value={values.price}
+              mode="outlined"
+              onChangeText={handleChange('price')}
+              keyboardType="number-pad"
+              error={errors.price}
+              disabled={isLoading}
+            />
+            <Text>{errors.price}</Text>
 
-              <Input
-                label="Produtor"
-                value={values.owner}
-                mode="outlined"
-                onChangeText={handleChange('owner')}
-                error={errors.owner}
-                disabled={isLoading}
-              />
-              <Text>{errors.owner}</Text>
-            </Wrapper>
+            <Input
+              label="Produtor"
+              value={values.owner}
+              mode="outlined"
+              onChangeText={handleChange('owner')}
+              error={errors.owner}
+              disabled={isLoading}
+            />
+            <Text>{errors.owner}</Text>
             <Image
               source={{ uri: imgurl }}
               width={300}

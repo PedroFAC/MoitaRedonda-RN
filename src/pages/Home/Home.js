@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
-import { Text } from 'react-native';
+import { Image, Text } from 'react-native';
 import { useFirebaseAuth } from '../../helpers/hooks';
 import {
   Input,
@@ -11,6 +11,7 @@ import {
 } from '../../components/sharedComponents/sharedComponents';
 import routesEnum from '../../routes/routesConstants';
 import { loginSchema } from '../../helpers/schemas/loginSchema';
+import { logo } from '../../assets';
 
 const Home = () => {
   const { navigate } = useNavigation();
@@ -23,6 +24,7 @@ const Home = () => {
     >
       {({ values, handleChange, handleSubmit, errors }) => (
         <Wrapper>
+          <Image source={logo} style={{ height: 200, width: 200 }} />
           <Input
             mode="outlined"
             label="Email"
