@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Text } from 'react-native';
+import { Image } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Formik } from 'formik';
 import { Button } from 'react-native-paper';
 import {
   Container,
+  ErrorText,
   Input,
 } from '../../../components/sharedComponents/sharedComponents';
 import { productSchema } from '../../../helpers/schemas/productSchema';
@@ -50,7 +51,7 @@ const EditProductForm = () => {
               error={errors.name}
               disabled={isLoading}
             />
-            <Text>{errors.name}</Text>
+            <ErrorText>{errors.name}</ErrorText>
             <Input
               label="Descrição"
               value={values.description}
@@ -59,7 +60,7 @@ const EditProductForm = () => {
               error={errors.description}
               disabled={isLoading}
             />
-            <Text>{errors.description}</Text>
+            <ErrorText>{errors.description}</ErrorText>
 
             <Input
               label="Preço"
@@ -70,7 +71,7 @@ const EditProductForm = () => {
               error={errors.price}
               disabled={isLoading}
             />
-            <Text>{errors.price}</Text>
+            <ErrorText>{errors.price}</ErrorText>
 
             <Input
               label="Produtor"
@@ -80,7 +81,7 @@ const EditProductForm = () => {
               error={errors.owner}
               disabled={isLoading}
             />
-            <Text>{errors.owner}</Text>
+            <ErrorText>{errors.owner}</ErrorText>
 
             <Image
               source={{ uri: imgurl, height: 300, width: 300 }}

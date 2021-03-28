@@ -85,3 +85,10 @@ export const SmallPrice = styled(Text)`
   font-size: ${theme.fonts.heading3.fontSize}px;
   color: ${theme.colors.brown};
 `;
+
+export const ErrorText = styled(Text)`
+  text-align: center;
+  font-family: ${theme.fonts.paragraph.fontFamily};
+  font-size: ${theme.fonts.paragraph.fontSize}px;
+  color: ${theme.colors.red};
+`;
